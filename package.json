@@ -1,0 +1,13 @@
+{
+  "name": "fetch-embed",
+  "version": "0.1.0",
+  "main": "index.js",
+  "author": "freemt",
+  "license": "MIT",
+  "scripts": {
+    "start": "pyright && pytest tests && yarn style",
+    "test": "nodemon -w tests -w fetch_embed -e .py -x pytest -s tests",
+    "style": "nodemon -w tests -w fetch_embed -e .py -x \"black tests fetch_embed && python -m flake8\"",
+    "pyright": "nodemon -w tests -w fetch_embed -e .py -x pyright"
+  }
+}

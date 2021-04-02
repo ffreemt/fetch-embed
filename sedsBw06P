@@ -1,0 +1,37 @@
+cdto pypi
+new-poetry repo_name fetech_embed
+cd repo_name
+poetry run pip install \dl\python-packages\
+cp ..\template-files\* .
+    mv readme.rst readme.md
+    edit readm.md
+        authors = ["freemt"]
+        license = "MIT"
+        readme = "README.md"
+        repository = "https://github.com/ffreemt/repo_name"
+rg -e fetech_embed -l --no-ignore --hidden | xargs sed -i -e "s/fetech_embed/sogou_scraper_pyppeteer/g"
+rg -e fetech_embed -l --no-ignore --hidden | xargs sed -i -e "s/fetech_embed/sogou_scraper_pp/g"
+rg -e fetech_embed -l --no-ignore --hidden | xargs sed -i -e "s/fetech_embed/sogou_scraper_pp/g"
+
+rm sed*
+
+git init
+poetry37 add logzero
+poetry37 add pylin flake8 tbump ipython --dev
+
+yarn init
+or pnpm init
+or npm init
+
+tbump init 0.1.0
+REM tbump init --pyproject 0.1.0
+  [[files]]
+  src = "*/__init__.py"
+  [[files]]
+  src = "package.json"
+  [[files]]
+  src = "tests/_test_*.py"
+
+edti package.json
+  "scritpts": {
+  }
