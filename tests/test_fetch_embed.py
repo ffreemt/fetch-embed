@@ -1,4 +1,5 @@
 """Test fetch_embed."""
+import numpy as np
 from fetch_embed import fetch_embed
 
 
@@ -8,5 +9,5 @@ def test_fetch_embed():
 
     res = fetch_embed(texts, livepbar=False)
 
-    assert res.shape == (2, 512)
-    assert res.mean() > -0.1
+    assert np.array(res).shape == (2, 512)
+    assert np.array(res).mean() > -0.1

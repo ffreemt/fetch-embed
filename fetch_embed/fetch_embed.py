@@ -1,8 +1,7 @@
 """Fetch embed from endpoint."""
 from typing import List, Union
 
-from math import ceil
-import numpy as np
+# from math import ceil
 import httpx
 
 from logzero import logger
@@ -27,7 +26,7 @@ def fetch_embed(
         livepbar: bool = True,  # need to turned off for pytest
         timeout: float = None,
         client=CLIENT,
-) -> np.ndarray:
+) -> List[float]:
     """Fetch embed from endpoint."""
     if isinstance(texts, str):
         texts = [texts]
@@ -66,7 +65,8 @@ def fetch_embed(
     if res is None:
         raise Exception("Cant get anything from jdata.get('embed'), probbaly wrong API...")
 
-    return np.array(res)
+    # return np.array(res)
+    return res
 
     # feed back error messages
     # return np.array([jdata.get("error")])
