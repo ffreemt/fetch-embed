@@ -12,6 +12,7 @@ HOST1 = "ttw.hopto.org"
 HOST2 = "embed.ttw.workers.dev"
 EP1 = f"http://{HOST1}/embed/"
 EP2 = f"http://{HOST2}/embed/"
+CLIENT = httpx.Client()
 try:
     httpx.get(EP1)
     EP_ = EP1
@@ -25,28 +26,20 @@ def fetch_embed(
         endpoint: str = EP_,
         livepbar: bool = True,  # need to turned off for pytest
         timeout: float = None,
+        client=CLIENT,
 ) -> np.ndarray:
     """Fetch embed from endpoint."""
     if isinstance(texts, str):
         texts = [texts]
     data = {"text1": texts}
 
-    if timeout is None:
-        batch = ceil(len(texts) / 32)
-        timeout = batch * 10
-        if timeout > 60:
-            logger.info(
-                "\n\t"
-                "eta %s s...",
-                batch * 6
-            )
-
     resp = httpx.Response(200)
 
     def func_():
         nonlocal resp
         try:
-            resp = httpx.post(
+            # resp = httpx.post(
+            resp = client.post(
                 endpoint,
                 json=data,
                 timeout=timeout)
