@@ -2,6 +2,7 @@
 from typing import List, Union
 
 # from math import ceil
+import platform
 import httpx
 
 from logzero import logger
@@ -12,11 +13,18 @@ HOST2 = "embed.ttw.workers.dev"
 EP1 = f"http://{HOST1}/embed/"
 EP2 = f"http://{HOST2}/embed/"
 CLIENT = httpx.Client()
-try:
-    httpx.get(EP1)
-    EP_ = EP1
-except Exception:
-    EP_ = EP2
+
+EP_ = ""
+# if in oracle2, use 127.0.0.1:8000
+if platform.node() == "oracle2":
+    EP_ = f"http://127.0.0.1:8000/embed/"
+
+if not EP_:
+    try:
+        httpx.get(EP1)
+        EP_ = EP1
+    except Exception:
+        EP_ = EP2
 
 
 # fmt: off
@@ -31,6 +39,11 @@ def fetch_embed(
     if isinstance(texts, str):
         texts = [texts]
     data = {"text1": texts}
+
+    if len(data) > 32:
+        logger.warning("This will likely result in timeout errors")
+        logger.warning("You may wish to break down to smaller pieces.")
+        raise Exception("List too long")
 
     resp = httpx.Response(200)
 
@@ -63,7 +76,7 @@ def fetch_embed(
 
     res = jdata.get("embed")
     if res is None:
-        raise Exception("Cant get anything from jdata.get('embed'), probbaly wrong API...")
+        raise Exception("Cant get anything from jdata.get('embed'), probably wrong API...")
 
     # return np.array(res)
     return res
