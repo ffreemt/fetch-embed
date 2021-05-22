@@ -1,8 +1,11 @@
 [tool.poetry]
 name = "fetch-embed"
-version = "0.1.4"
+version = "0.1.5"
 description = ""
 authors = ["freemt"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/ffreemt/fetch-embed"
 
 [tool.poetry.dependencies]
 python = "^3.7"
