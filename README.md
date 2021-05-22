@@ -19,10 +19,10 @@ via cloudflare: `https://embed.ttw.workers.dev/embed/` and `https://embed.ttw.wo
 
 In case you cannot access `embed.ttw.workers.dev`, you may use `ttw.hopto.org` (hosted by noip.com) instead.
 
-##### docs for these endpoints
-    `https://embed.ttw.workers.dev/docs`
+##### Swagger UI: Self-docs for these endpoints
+[https://embed.ttw.workers.dev/docs](https://embed.ttw.workers.dev/docs)
 
-    (`https://ttw.hopto.org/docs`)
+[https://ttw.hopto.org/docs](https://ttw.hopto.org/docs)
 
 #### Model 1: multilingual, dim-512
 
