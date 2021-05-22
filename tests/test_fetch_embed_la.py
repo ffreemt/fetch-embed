@@ -9,6 +9,10 @@ def test_fetch_embed_la():
 
     ip_ = "127.0.0.1"
     endpoint = f"http://{ip_}/embed_la/"
+
+    ip_ = "embed.ttw.workers.dev"
+    endpoint = f"https://{ip_}/embed_la/"
+
     res = fetch_embed(texts, livepbar=False, endpoint=endpoint)
 
     # assert np.array(res).shape == (2, 512)
