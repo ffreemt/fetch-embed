@@ -11,6 +11,46 @@ pip install -U fetch-embed
 
 ## Use it
 
+### Make use of the helper function `embed_text`
+
+#### `endpoints` for two models (dim-52 and dim-768)
+
+via cloudflare: `https://embed.ttw.workers.dev/embed/` and `https://embed.ttw.workers.dev/embed_la/`
+
+In case you cannot access `embed.ttw.workers.dev`, you may use `ttw.hopto.org` (hosted by noip.com) instead.
+
+##### docs for these endpoints
+    `https://embed.ttw.workers.dev/docs`
+
+    (`https://ttw.hopto.org/docs`)
+
+#### Model 1: multilingual, dim-512
+
+The default endpoint is `https://embed.ttw.workers.dev/embed/`
+```python
+from fetch_embed.embed_text import embed_text
+
+res = embed_text(["test a", "测试"])
+print(res.shape)
+# (2, 512)
+```
+
+#### Model 2: language agnostic, dim-768
+
+endpoint: `https://embed.ttw.workers.dev/embed_la/`
+```python
+from fetch_embed.embed_text import embed_text
+
+endpoint = "https://embed.ttw.workers.dev/embed_la/"
+
+res = embed_text(["test a", "测试"], endpoint=endpoint)
+print(res.shape)
+# (2, 768)
+```
+
+Consult the `embed_text.__doc__` (e.g. `print(embed_text.__doc__)`) or its source code for more details.
+
+### Access the API directly
 ```python
 from fetch_embed import fetch_embed
 
@@ -28,4 +68,15 @@ res = fetch_embed("test me", livepbar=False)
 help(fetch_embed)
 # fetch_embed(texts:Union[str, List[str]], endpoint:str='http://ttw.hopto.org/embed/', livepbar:bool=True) -> numpy.ndarray
     Fetch embed from endpoint.
+```
+
+Plug in `endpoint = "https://embed.ttw.workers.dev/embed_la/"` for Model 2, e.g.,
+```python
+import numpy as np
+from fetch_embed import fetch_embed
+
+endpoint = "https://embed.ttw.workers.dev/embed_la/"
+res = fetch_embed("test me", endpoint=endpoint)
+print(np.array(res).shape)
+# (1, 768)
 ```

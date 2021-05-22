@@ -74,7 +74,12 @@ def fetch_embed(
         logger.error(exc)
         raise
 
-    res = jdata.get("embed")
+    try:
+        res = jdata.get("embed")
+    except Exception as e:
+        logger.error(e)
+        raise
+
     if res is None:
         raise Exception("Cant get anything from jdata.get('embed'), probably wrong API...")
 
