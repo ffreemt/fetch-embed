@@ -1,6 +1,8 @@
 """Test embed_text."""
+import shutil
 import numpy as np
 from fetch_embed import embed_text
+shutil.rmtree("./joblibcache", ignore_errors=True)
 
 
 def test_embed_la_text():

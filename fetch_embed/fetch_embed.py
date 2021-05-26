@@ -12,7 +12,8 @@ HOST1 = "ttw.hopto.org"
 HOST2 = "embed.ttw.workers.dev"
 EP1 = f"http://{HOST1}/embed/"
 EP2 = f"http://{HOST2}/embed/"
-CLIENT = httpx.Client()
+TIMEOUT = httpx.Timeout(15, read=300)  # 5min read timeout, 15s
+CLIENT = httpx.Client(verify=False, timeout=TIMEOUT)
 
 EP_ = ""
 # if in oracle2, use 127.0.0.1:8000
@@ -32,7 +33,7 @@ def fetch_embed(
         texts: Union[str, List[str]],
         endpoint: str = EP_,
         livepbar: bool = True,  # need to turned off for pytest
-        timeout: float = None,
+        timeout=TIMEOUT,
         client=CLIENT,
 ) -> List[float]:
     """Fetch embed from endpoint."""
@@ -46,6 +47,7 @@ def fetch_embed(
         raise Exception("List too long")
 
     resp = httpx.Response(200)
+
 
     def func_():
         nonlocal resp
